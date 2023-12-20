@@ -148,7 +148,7 @@ def cli():
         "--output_dir",
         "-o",
         type=str,
-        default="output",
+        default=".",
         help="directory to save the outputs",
     )
 
