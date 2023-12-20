@@ -1,0 +1,1 @@
+A B L D E F G H I J K L M N O P Q R S T U V W X Y Z Y X W V U T S L Q P O N M L K J I H G F E D C B A

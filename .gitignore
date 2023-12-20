@@ -5,5 +5,3 @@ bin/
 .vscode
 .env
 output
-assets
-tests
