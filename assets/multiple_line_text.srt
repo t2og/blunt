@@ -1,0 +1,8 @@
+﻿1
+00:00:00,000 --> 00:00:07,040
+A B C D E F G H I J K C M 
+N O P Q R S T U V W X Y Z 
+
+2
+00:00:07,040 --> 00:00:10,500
+Y X W V U T S R Q P O N M C K J I H G F E D C B A

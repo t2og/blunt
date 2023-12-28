@@ -1,12 +1,13 @@
 import os
+import codecs
 
 OUTPUT_DIR = "output"
 
 
 def load(file_path: str) -> str:
     try:
-        with open(file_path, "r", encoding="utf-8") as file:
-            file_content = file.read()
+        with codecs.open(file_path, "r", encoding="utf-8-sig") as file:
+            file_content = file.read().replace('\r\n', '\n')
             return file_content
     except FileNotFoundError:
         print(f"File '{file_path}' not found.")

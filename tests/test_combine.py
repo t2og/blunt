@@ -29,20 +29,33 @@ def get_combine_lines(text_name: str) -> list[str]:
 
 def test_less_original():
     lines = get_combine_lines("less_text.srt")
-    assert lines[2][4] == CHECK_POINT
+    assert lines[2][22] == CHECK_POINT
 
 
 def test_more_original():
     lines = get_combine_lines("more_text.srt")
-    assert lines[2][16] == CHECK_POINT
+    assert lines[2][22] == CHECK_POINT
     assert len(lines) == 4
 
 
 def test_equal_original():
     lines = get_combine_lines("equal_text.srt")
-    assert lines[2][4] == CHECK_POINT
-    assert lines[14][16] == CHECK_POINT
+    assert lines[6][4] == CHECK_POINT
+    assert lines[18][10] == CHECK_POINT
     assert len(lines) == 26
+
+
+def test_multiline():
+    file_name = "multiple_line_text.srt"
+    lines = get_combine_lines(file_name)
+    assert lines[2][22] == CHECK_POINT
+    assert lines[6][::-1][22] == CHECK_POINT
+
+
+def test_resolve():
+    _, subtitle = get_test_data("multiple_line_text.srt")
+    subtitle_result = resolve(subtitle)
+    assert len(subtitle_result.new_line_poses) == 1
 
 
 def test_cli():
