@@ -100,13 +100,16 @@ def combine(subtitle_result: SubtitleResult, original: str) -> str:
         from_lines = from_text.split("\n")
         to_lines = to_text.split("\n")
         j = 0
-
-        for i, line in enumerate(to_lines):
-            if (i - 2) % 4 == 0 and j < len(from_lines):
-                result += f"{from_lines[j]}\n"
-                j += 1
-            else:
+        next_text_flag = False
+        for _, line in enumerate(to_lines):
+            if not line or line.isdigit() or " --> " in line:
+                next_text_flag = True
                 result += f"{line}\n"
+            else:
+                if next_text_flag == True and j < len(from_lines):
+                    result += f"{from_lines[j]}\n"
+                    j += 1
+                    next_text_flag = False
 
         # merge the remaining sections of the original.
         while j < len(from_lines):
@@ -121,15 +124,14 @@ def combine(subtitle_result: SubtitleResult, original: str) -> str:
 def resolve(subtitle: str) -> SubtitleResult:
     result = ""
     new_line_poses = list()
-    new_line_offset = 0
     lines = subtitle.split("\n")
 
-    for i, line in enumerate(lines):
-        if (i - 2) % 4 == 0:
-            result += f"{line}"
-            line_len = len(line)
-            new_line_offset += line_len
-            new_line_poses.append(new_line_offset)
+    for _, line in enumerate(lines):
+        if not line:
+            line_len = len(result)
+            new_line_poses.append(line_len)
+        elif not line.isdigit() and " --> " not in line:
+            result += line
 
     return SubtitleResult(word=result, new_line_poses=new_line_poses, source=subtitle)
 
